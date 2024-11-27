@@ -19,11 +19,13 @@ func (t *EnumGoTableInfo) Init(p *proto.Enum) {
 	t.p = p
 	// 消息模块
 	type CmdModule int32
-	t.WLine("//%s", p.Comment.Lines)
+
+	if p.Comment != nil && p.Comment.Lines != nil {
+		t.WLine("//%s", p.Comment.Lines)
+	}
 	t.WLine("type %s int32", p.Name)
 
 	t.WLine("const (")
-
 	//fmt.Println("Enum Name:", p.Name) // 获取枚举名称
 	for _, value := range p.Elements {
 		if e, ok := value.(*proto.EnumField); ok {
