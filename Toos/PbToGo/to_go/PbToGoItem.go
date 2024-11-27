@@ -89,6 +89,8 @@ func (t *PbToGoItem) DoSheetTable(definition *proto.Proto) {
 
 // 所有整合
 func (t *PbToGoItem) DoAllIntegrate() {
+	t.WLine("package %s", t.packageName)
+
 	t.WLine("/**")
 	// 获取当前时间
 	//currentTime := time.Now()
@@ -97,8 +99,6 @@ func (t *PbToGoItem) DoAllIntegrate() {
 	t.WLine("由 %s.xlsx %s excel文件生成 ...", t.Name)
 	t.WLine("author:yh ")
 	t.WLine("*/")
-
-	t.WLine("export namespace %s {", t.packageName)
 
 	for _, table := range t.EnumMap {
 		t.WLine(table.GetDataContent())
