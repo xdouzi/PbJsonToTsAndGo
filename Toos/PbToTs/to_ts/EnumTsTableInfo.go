@@ -22,7 +22,7 @@ func (t *EnumTsTableInfo) Init(p *proto.Enum) {
 	for _, value := range p.Elements {
 		if e, ok := value.(*proto.EnumField); ok {
 			fmt.Printf("Enum Value: Name=%s, Value=%d\n", e.Name, e.Integer)
-			t.WLine(" %s = %s,", e.Name, e.Integer)
+			t.WLine(" %s = %d,", e.Name, e.Integer)
 		}
 	}
 

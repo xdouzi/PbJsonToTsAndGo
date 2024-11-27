@@ -3,6 +3,14 @@
 author:yh 
 */
 export namespace pb {
+ export enum  ANTIWALLOW_RET {
+  ANTIWALLOW_SUC = 0,
+  ANTIWALLOW_ID_INVALID = -1,
+  ANTIWALLOW_ID_REPEATE = -2,
+  ANTIWALLOW_FAIL = -3,
+  ANTIWALLOW_NOT_ENOUGH_18 = -4,
+ }
+
  export class Base_Login_LoginInfo{
   public DeviceId:string;
  }
