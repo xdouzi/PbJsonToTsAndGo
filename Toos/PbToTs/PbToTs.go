@@ -56,7 +56,7 @@ func main() {
 		m.Hang()
 		return
 	}
-	go_output := "./cfg_go" //"./bin/cfg_go"
+	go_output := "./Protocal" //"./bin/cfg_go"
 	//json_output := "./cfg_json" //"./bin/cfg_json"
 	m.DeleteFiles(go_output, ".go")
 	//m.DeleteFiles(json_output, ".json")

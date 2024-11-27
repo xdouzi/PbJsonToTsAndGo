@@ -17,14 +17,14 @@ enum ANTIWALLOW_RET{
 message Net_Login_LoginReq
 {
     string  DeviceId = 1;//设备Id
-   /* string  FacebookId = 2;//平台Id绑定在主要key上
+    string  FacebookId = 2;//平台Id绑定在主要key上
     string  AppleId = 3;//苹果Id
     string  HmsId=4;//华为Id
     string  Credential = 5; //"登陆凭据"
     string  Package = 6; //包名
     string  DeviceModel = 7;//设备型号
     string  SysVersion = 8;//系统版本
-  */
+
   //string PlatName = 7;//平台名
   /*
     string  Version = 7; //包版本号
@@ -34,7 +34,6 @@ message Net_Login_LoginReq
   */
 }
 
-/*
 message Net_Login_LoginRet
 {
   int32 Ret =1;//0:登录成功;1:凭据错误;2:重新链接失败;3:跨日;
@@ -52,7 +51,7 @@ message Net_Login_LoginRet
   //用户数据
   //Base_User_UserData UserData =11;
 }
- */
+
 /*
 //断线重新连接
 message Net_Login_ReconnectReq{
