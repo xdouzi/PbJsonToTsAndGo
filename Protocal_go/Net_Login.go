@@ -1,7 +1,7 @@
 package pb
 /**
-由 Net_Login.xlsx %!s(MISSING) excel文件生成 ...
-author:yh 
+由 Net_Login.proto 文件生成 ...
+author:yh  2024.11.27
 */
  //[登录]
  type ANTIWALLOW_RET int32

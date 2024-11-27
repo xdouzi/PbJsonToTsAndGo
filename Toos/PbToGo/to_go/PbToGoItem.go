@@ -96,8 +96,8 @@ func (t *PbToGoItem) DoAllIntegrate() {
 	//currentTime := time.Now()
 	// 格式化为 "年:月:日 00:00" 的格式
 	//formattedTime := currentTime.Format("2006.01.02 15:04")
-	t.WLine("由 %s.xlsx %s excel文件生成 ...", t.Name)
-	t.WLine("author:yh ")
+	t.WLine("由 %s.proto 文件生成 ...", t.Name)
+	t.WLine("author:yh  2024.11.27")
 	t.WLine("*/")
 
 	for _, table := range t.EnumMap {
