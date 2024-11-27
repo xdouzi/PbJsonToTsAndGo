@@ -14,7 +14,9 @@ type PbToGo struct {
 	file_content  string
 	fileName      string
 	Name          string
+	EnumMap       []*EnumTsTableInfo
 	SheetTableMap []*ClassTsTableInfo
+	packageName   string
 }
 
 func NewPbToGo() *PbToGo {
@@ -55,6 +57,14 @@ func (t *PbToGo) OpenProtoFile(fileName string, path string, output string) {
 func (t *PbToGo) DoSheetTable(definition *proto.Proto) {
 	// 遍历消息和字段
 	proto.Walk(definition,
+		proto.WithPackage(func(p *proto.Package) {
+			t.packageName = p.Name
+		}),
+		proto.WithEnum(func(p *proto.Enum) {
+			//处理美剧
+			e := NewEnumTsTableInfo(p)
+			t.EnumMap = append(t.EnumMap, e)
+		}),
 		proto.WithMessage(func(m *proto.Message) {
 			t.m = m
 			q := NewClassTsTableInfo()
@@ -88,10 +98,13 @@ func (t *PbToGo) DoAllIntegrate() {
 	t.WLine("author:yh ")
 	t.WLine("*/")
 
+	t.WLine("export namespace %s {", t.packageName)
+
 	for _, table := range t.SheetTableMap {
 		t.WLine(table.GetDataContent())
 	}
 
+	t.WLine("}")
 }
 
 func (t *PbToGo) SaveFile() {

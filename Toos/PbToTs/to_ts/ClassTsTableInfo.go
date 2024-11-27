@@ -44,7 +44,7 @@ func (t *ClassTsTableInfo) GetOTypeByPbType(pbType string) string {
 }
 
 func (t *ClassTsTableInfo) WLine(format string, a ...any) {
-	aline := fmt.Sprintf(format, a...)
+	aline := " " + fmt.Sprintf(format, a...)
 	t.file_content += aline + "\n"
 }
 func (t *ClassTsTableInfo) GetDataContent() string {
