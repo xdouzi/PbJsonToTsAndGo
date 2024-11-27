@@ -65,7 +65,7 @@ func main() {
 		if filepath.Ext(fileName) == ".proto" {
 			filePath := filepath.Join(dirPath, fileName)
 			t := to_ts.NewPbToGo()
-			t.OpenExcelFile(fileName, filePath, go_output)
+			t.OpenProtoFile(fileName, filePath, go_output)
 
 			//js := to_json.NewExcelToJson()
 			//js.OpenExcelFile(fileName, filePath, json_output)
