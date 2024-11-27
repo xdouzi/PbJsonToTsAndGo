@@ -100,6 +100,10 @@ func (t *PbToGo) DoAllIntegrate() {
 
 	t.WLine("export namespace %s {", t.packageName)
 
+	for _, table := range t.EnumMap {
+		t.WLine(table.GetDataContent())
+	}
+
 	for _, table := range t.SheetTableMap {
 		t.WLine(table.GetDataContent())
 	}
