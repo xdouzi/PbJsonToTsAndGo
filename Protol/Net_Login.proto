@@ -1,0 +1,99 @@
+syntax = "proto3";
+package pb;
+option go_package = "./pb";
+
+//登录
+enum ANTIWALLOW_RET{
+  ANTIWALLOW_SUC=0;//通过
+  ANTIWALLOW_ID_INVALID=-1;//ID无效
+  ANTIWALLOW_ID_REPEATE=-2;//ID重复
+  ANTIWALLOW_FAIL=-3;//失败
+  ANTIWALLOW_NOT_ENOUGH_18=-4;//未满18岁
+}
+//不能用下划线槽
+
+
+//游客登录
+message Net_Login_LoginReq
+{
+    string  DeviceId = 1;//设备Id
+   /* string  FacebookId = 2;//平台Id绑定在主要key上
+    string  AppleId = 3;//苹果Id
+    string  HmsId=4;//华为Id
+    string  Credential = 5; //"登陆凭据"
+    string  Package = 6; //包名
+    string  DeviceModel = 7;//设备型号
+    string  SysVersion = 8;//系统版本
+  */
+  //string PlatName = 7;//平台名
+  /*
+    string  Version = 7; //包版本号
+    string  HotVersion = 8; //热更新资源版本号
+    bool    IsRealLogin = 11;//是否真实登录
+    string  AdId =12;//广告Id
+  */
+}
+
+/*
+message Net_Login_LoginRet
+{
+  int32 Ret =1;//0:登录成功;1:凭据错误;2:重新链接失败;3:跨日;
+  int64 Uid = 2;//玩家ID
+  int32 AntiWallow =3;//防沉迷 0:未成年;1:成年
+  //bool IsMergedServer = 4;//是否合服
+  //int32 SceneId = 5;//场景ID
+  //int32 LastSceneId =6;//上次场景ID
+  string Credential = 7;//登录凭证 SessionKey
+  int64 ServerTime =8;  //服务器时间
+  //不同的设备
+  int32 DifferentDevice =9;
+  //是否是第一次登录
+  bool IsFirstLogin =10;
+  //用户数据
+  //Base_User_UserData UserData =11;
+}
+ */
+/*
+//断线重新连接
+message Net_Login_ReconnectReq{
+  //登录数据
+  Net_Login_LoginReq Login =1;
+  int32 ThemeId =2;
+  bool Quest =3;//任务
+  bool NormalQuest =4;//普通任务
+}
+message Net_Login_ReconnectRet{
+  int32 Ret =1;//0:成功;1:凭据错误;2:重新链接失败;3:跨日;
+  //玩家数据
+  //Base_User_UserData UserData =2;
+  //Base_Match3_RoomInfo RoomInfo =9;//如果有房间信息就直接拉进房间里
+}
+//--------------------------------------------------------
+//活着
+message Net_Login_KeepAliveReq
+{
+    // BuffData wawa =1;
+}
+//heartbeat 心跳包
+message Net_Login_KeepAliveRet
+{
+  int32 Coins =1;//当前玩家金币
+  int64 CurrentServerTime=2;//当前服务器时间
+
+}
+//多用户登录 主动推送被挤下线
+message Net_Login_MultiUserLoginRet
+{
+  string LoginAddress =1;//你被这个地址登录挤下线
+
+}
+//通过防沉迷
+message New_Login_PassAntiWallowReq
+{
+}
+message New_Login_PassAntiWallowRet
+{
+  int32 Ret=1;//0:通过;1:未通过
+}
+
+*/
