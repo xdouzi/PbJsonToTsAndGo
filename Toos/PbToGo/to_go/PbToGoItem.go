@@ -1,4 +1,4 @@
-package go_ts
+package to_go
 
 import (
 	"fmt"
@@ -62,12 +62,12 @@ func (t *PbToGoItem) DoSheetTable(definition *proto.Proto) {
 		}),
 		proto.WithEnum(func(p *proto.Enum) {
 			//处理美剧
-			e := NewEnumTsTableInfo(p)
+			e := NewEnumGoTableInfo(p)
 			t.EnumMap = append(t.EnumMap, e)
 		}),
 		proto.WithMessage(func(m *proto.Message) {
 			t.m = m
-			q := NewClassTsTableInfo()
+			q := NewClassGoTableInfo()
 			q.DoData(m)
 			t.ClassMap = append(t.ClassMap, q)
 
@@ -125,7 +125,7 @@ func (t *PbToGoItem) SaveFile() {
 		fmt.Println("Directory created successfully!")
 	}
 
-	outputFile := fmt.Sprintf("%s/%s.ts", t.output, t.Name)
+	outputFile := fmt.Sprintf("%s/%s.go", t.output, t.Name)
 	// 将配置文件写入文件中
 	err := ioutil.WriteFile(outputFile, []byte(t.file_content), 0644)
 	if err != nil {

@@ -58,7 +58,7 @@ func main() {
 	}
 	go_output := "./Protocal" //"./bin/cfg_go"
 	//json_output := "./cfg_json" //"./bin/cfg_json"
-	m.DeleteFiles(go_output, ".go")
+	m.DeleteFiles(go_output, ".ts")
 	//m.DeleteFiles(json_output, ".json")
 
 	for _, fileName := range fileNames {
