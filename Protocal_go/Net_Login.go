@@ -39,4 +39,3 @@ author:yh
   IsFirstLogin   bool
  }
 
-}

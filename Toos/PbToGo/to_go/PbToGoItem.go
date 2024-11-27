@@ -108,7 +108,6 @@ func (t *PbToGoItem) DoAllIntegrate() {
 		t.WLine(table.GetDataContent())
 	}
 
-	t.WLine("}")
 }
 
 func (t *PbToGoItem) SaveFile() {
