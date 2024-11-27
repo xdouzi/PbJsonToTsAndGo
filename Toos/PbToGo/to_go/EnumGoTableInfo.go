@@ -17,8 +17,6 @@ func NewEnumGoTableInfo(p *proto.Enum) *EnumGoTableInfo {
 }
 func (t *EnumGoTableInfo) Init(p *proto.Enum) {
 	t.p = p
-	// 消息模块
-	type CmdModule int32
 
 	if p.Comment != nil && p.Comment.Lines != nil {
 		t.WLine("//%s", p.Comment.Lines)

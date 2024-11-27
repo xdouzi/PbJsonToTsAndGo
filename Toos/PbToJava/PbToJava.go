@@ -6,7 +6,7 @@ added by yh @ 2023/6/25 17:35
 package main
 
 import (
-	"PbJsonToTsAndGo/Toos/PbToGo/to_go"
+	"PbJsonToTsAndGo/Toos/PbToJava/to_java"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	m := &to_go.PbToGoMain{}
+	m := &to_java.PbToGoMain{}
 	dirPath := "./Protol"
 	// 检查文件夹是否存在
 	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
@@ -58,13 +58,13 @@ func main() {
 	}
 	go_output := "./Protocal_java" //"./bin/cfg_go"
 	//json_output := "./cfg_json" //"./bin/cfg_json"
-	m.DeleteFiles(go_output, ".go")
+	m.DeleteFiles(go_output, ".java")
 	//m.DeleteFiles(json_output, ".json")
 
 	for _, fileName := range fileNames {
 		if filepath.Ext(fileName) == ".proto" {
 			filePath := filepath.Join(dirPath, fileName)
-			t := to_go.NewPbToGoItem()
+			t := to_java.NewPbToJavaItem()
 			t.OpenProtoFile(fileName, filePath, go_output)
 			//js := to_json.NewExcelToJson()
 			//js.OpenExcelFile(fileName, filePath, json_output)

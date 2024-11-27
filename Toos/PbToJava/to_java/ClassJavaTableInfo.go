@@ -16,17 +16,13 @@ func NewClassJavaTableInfo() *ClassJavaTableInfo {
 }
 
 func (t *ClassJavaTableInfo) DoData(m *proto.Message) {
-	t.WLine("type %s struct {", m.Name)
+	t.WLine("class %s {", m.Name)
 
 	for _, e := range m.Elements {
 		if field, ok := e.(*proto.NormalField); ok {
 			fmt.Printf("  Field: %s:%s \n", field.Name, field.Type)
-			otype, isp := t.GetOTypeByPbType(field.Type)
-			if isp == false {
-				t.WLine(" %s   %s", field.Name, otype)
-			} else {
-				t.WLine(" %s   *%s", field.Name, otype)
-			}
+			otype, _ := t.GetOTypeByPbType(field.Type)
+			t.WLine("  public %s %s;", otype, field.Name)
 
 		}
 	}
@@ -38,13 +34,13 @@ func (t *ClassJavaTableInfo) GetOTypeByPbType(pbType string) (string, bool) {
 	otype := pbType
 	switch pbType {
 	case "string":
-		return "string", false
+		return "String", false
 	case "int32":
-		return "int32", false
+		return "int", false
 	case "int64":
-		return "int64", false
+		return "long", false
 	case "bool":
-		return "bool", false
+		return "Boolean", false
 	}
 
 	return otype, true

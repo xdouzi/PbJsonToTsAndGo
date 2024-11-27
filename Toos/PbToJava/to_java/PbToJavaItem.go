@@ -89,7 +89,7 @@ func (t *PbToJavaItem) DoSheetTable(definition *proto.Proto) {
 
 // 所有整合
 func (t *PbToJavaItem) DoAllIntegrate() {
-	t.WLine("package %s", t.packageName)
+	t.WLine("package %s;", t.packageName)
 
 	t.WLine("/**")
 	// 获取当前时间
