@@ -1,4 +1,4 @@
-package to_go
+package to_ts
 
 import (
 	"fmt"
