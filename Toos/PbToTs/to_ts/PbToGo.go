@@ -92,7 +92,6 @@ func (t *PbToGo) DoAllIntegrate() {
 		t.WLine(table.GetDataContent())
 	}
 
-	t.WLine("}")
 }
 
 func (t *PbToGo) SaveFile() {

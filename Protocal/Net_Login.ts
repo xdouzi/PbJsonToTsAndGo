@@ -14,13 +14,12 @@ export class Net_Login_LoginReq{
 }
 
 export class Net_Login_LoginRet{
- public Ret:int32;
- public Uid:int64;
- public AntiWallow:int32;
+ public Ret:number;
+ public Uid:number;
+ public AntiWallow:number;
  public Credential:string;
- public ServerTime:int64;
- public DifferentDevice:int32;
- public IsFirstLogin:bool;
+ public ServerTime:number;
+ public DifferentDevice:number;
+ public IsFirstLogin:boolean;
 }
 
-}
