@@ -42,7 +42,7 @@ func (t *EnumJavaTableInfo) Init(p *proto.Enum) {
 	t.WLine("}")
 
 	t.WLine("// 获取枚举值的代码")
-	t.WLine("public int getCode() {")
+	t.WLine("public int GetCode() {")
 	t.WLine("	return code;")
 	t.WLine("}")
 

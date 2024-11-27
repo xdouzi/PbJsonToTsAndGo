@@ -18,7 +18,7 @@ author:yh  2024.11.27
  	this.code = code;
  }
  // 获取枚举值的代码
- public int getCode() {
+ public int GetCode() {
  	return code;
  }
   }
