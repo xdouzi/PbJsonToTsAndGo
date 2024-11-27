@@ -8,23 +8,23 @@ import (
 	"strings"
 )
 
-type PbToGo struct {
-	m             *proto.Message
-	output        string //输出生成文件路径 ./Cx_output
-	file_content  string
-	fileName      string
-	Name          string
-	EnumMap       []*EnumTsTableInfo
-	SheetTableMap []*ClassTsTableInfo
-	packageName   string
+type PbToTsItem struct {
+	m            *proto.Message
+	output       string //输出生成文件路径 ./Cx_output
+	file_content string
+	fileName     string
+	Name         string
+	EnumMap      []*EnumTsTableInfo
+	ClassMap     []*ClassTsTableInfo
+	packageName  string
 }
 
-func NewPbToGo() *PbToGo {
-	return &PbToGo{}
+func NewPbToTsItem() *PbToTsItem {
+	return &PbToTsItem{}
 }
 
 // 打开协议文件
-func (t *PbToGo) OpenProtoFile(fileName string, path string, output string) {
+func (t *PbToTsItem) OpenProtoFile(fileName string, path string, output string) {
 	t.fileName = fileName
 	t.output = output
 	t.Name = strings.Replace(fileName, ".proto", "", -1)
@@ -54,7 +54,7 @@ func (t *PbToGo) OpenProtoFile(fileName string, path string, output string) {
 	t.DoAllIntegrate()
 	t.SaveFile()
 }
-func (t *PbToGo) DoSheetTable(definition *proto.Proto) {
+func (t *PbToTsItem) DoSheetTable(definition *proto.Proto) {
 	// 遍历消息和字段
 	proto.Walk(definition,
 		proto.WithPackage(func(p *proto.Package) {
@@ -69,7 +69,7 @@ func (t *PbToGo) DoSheetTable(definition *proto.Proto) {
 			t.m = m
 			q := NewClassTsTableInfo()
 			q.DoData(m)
-			t.SheetTableMap = append(t.SheetTableMap, q)
+			t.ClassMap = append(t.ClassMap, q)
 
 			/*
 				//fmt.Println("Message:", m.Name)
@@ -88,7 +88,7 @@ func (t *PbToGo) DoSheetTable(definition *proto.Proto) {
 }
 
 // 所有整合
-func (t *PbToGo) DoAllIntegrate() {
+func (t *PbToTsItem) DoAllIntegrate() {
 	t.WLine("/**")
 	// 获取当前时间
 	//currentTime := time.Now()
@@ -104,14 +104,14 @@ func (t *PbToGo) DoAllIntegrate() {
 		t.WLine(table.GetDataContent())
 	}
 
-	for _, table := range t.SheetTableMap {
+	for _, table := range t.ClassMap {
 		t.WLine(table.GetDataContent())
 	}
 
 	t.WLine("}")
 }
 
-func (t *PbToGo) SaveFile() {
+func (t *PbToTsItem) SaveFile() {
 	//dirPath := "./Cx_output"
 	dirPath := t.output
 	// 检查文件夹是否存在
@@ -136,7 +136,7 @@ func (t *PbToGo) SaveFile() {
 	}
 	t.file_content = ""
 }
-func (t *PbToGo) WLine(format string, a ...any) {
+func (t *PbToTsItem) WLine(format string, a ...any) {
 	aline := fmt.Sprintf(format, a...)
 	t.file_content += aline + "\n"
 
