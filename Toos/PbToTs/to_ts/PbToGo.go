@@ -44,6 +44,41 @@ func (t *PbToGo) OpenProtoFile(fileName string, path string, output string) {
 		fmt.Println("Error parsing .proto file:", err)
 		return
 	}
+
+	//------------------------------------------------------------
+	t.DoSheetTable(definition)
+	//------------------------------------------------------------
+	//整合处理
+	t.DoAllIntegrate()
+	t.SaveFile()
+}
+func (t *PbToGo) DoSheetTable(definition *proto.Proto) {
+	// 遍历消息和字段
+	proto.Walk(definition,
+		proto.WithMessage(func(m *proto.Message) {
+			t.m = m
+			q := NewClassTsTableInfo()
+			q.DoData(m)
+			t.SheetTableMap = append(t.SheetTableMap, q)
+
+			/*
+				//fmt.Println("Message:", m.Name)
+				for _, e := range m.Elements {
+					if field, ok := e.(*proto.NormalField); ok {
+						fmt.Printf("  Field: %s:%s \n", field.Name, field.Type)
+						t.WLine(" public %s:%s;", field.Name, field.Type)
+
+						t.SheetTableMap = append(t.SheetTableMap, q)
+					}
+				}
+			*/
+
+		}),
+	)
+}
+
+// 所有整合
+func (t *PbToGo) DoAllIntegrate() {
 	t.WLine("/**")
 	// 获取当前时间
 	//currentTime := time.Now()
@@ -52,35 +87,6 @@ func (t *PbToGo) OpenProtoFile(fileName string, path string, output string) {
 	t.WLine("由 %s.xlsx %s excel文件生成 ...", t.Name)
 	t.WLine("author:yh ")
 	t.WLine("*/")
-
-	//------------------------------------------------------------
-	t.DoSheetTable(definition)
-	//------------------------------------------------------------
-	t.SaveFile()
-}
-func (t *PbToGo) DoSheetTable(definition *proto.Proto) {
-	// 遍历消息和字段
-	proto.Walk(definition,
-		proto.WithMessage(func(m *proto.Message) {
-			//fmt.Println("Message:", m.Name)
-			t.m = m
-
-			for _, e := range m.Elements {
-				if field, ok := e.(*proto.NormalField); ok {
-					fmt.Printf("  Field: %s (%s)\n", field.Name, field.Type)
-					t.WLine(" public %s:%s;", field.Name, field.Type)
-					q := NewClassTsTableInfo(field)
-					t.SheetTableMap = append(t.SheetTableMap, q)
-				}
-			}
-
-		}),
-	)
-}
-
-// 所有整合
-func (t *PbToGo) DoAllIntegrate() {
-	t.WLine("export class %s{", t.m.Name)
 
 	for _, table := range t.SheetTableMap {
 		t.WLine(table.GetDataContent())
@@ -112,8 +118,6 @@ func (t *PbToGo) SaveFile() {
 	} else {
 		fmt.Println("配置文件已生成", outputFile)
 	}
-
-	fmt.Println("配置文件已生成", outputFile)
 	t.file_content = ""
 }
 func (t *PbToGo) WLine(format string, a ...any) {

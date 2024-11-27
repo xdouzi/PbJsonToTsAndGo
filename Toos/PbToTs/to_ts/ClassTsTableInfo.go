@@ -1,17 +1,35 @@
 package to_ts
 
-import "github.com/emicklei/proto"
+import (
+	"fmt"
+	"github.com/emicklei/proto"
+)
 
 type ClassTsTableInfo struct {
-	field *proto.NormalField
+	m            *proto.Message
+	file_content string
 }
 
+func NewClassTsTableInfo() *ClassTsTableInfo {
+	t := &ClassTsTableInfo{}
+	return t
+}
+
+func (t *ClassTsTableInfo) DoData(m *proto.Message) {
+	t.WLine("export class %s{", m.Name)
+	for _, e := range m.Elements {
+		if field, ok := e.(*proto.NormalField); ok {
+			fmt.Printf("  Field: %s:%s \n", field.Name, field.Type)
+			t.WLine(" public %s:%s;", field.Name, field.Type)
+		}
+	}
+	t.WLine("}")
+}
+func (t *ClassTsTableInfo) WLine(format string, a ...any) {
+	aline := fmt.Sprintf(format, a...)
+	t.file_content += aline + "\n"
+}
 func (t *ClassTsTableInfo) GetDataContent() string {
 
-}
-
-func NewClassTsTableInfo(field *proto.NormalField) *ClassTsTableInfo {
-	t := &ClassTsTableInfo{}
-	t.field = field
-	return t
+	return t.file_content
 }

@@ -12,6 +12,7 @@ export class Net_Login_LoginReq{
  public DeviceModel:string;
  public SysVersion:string;
 }
+
 export class Net_Login_LoginRet{
  public Ret:int32;
  public Uid:int64;
@@ -20,4 +21,6 @@ export class Net_Login_LoginRet{
  public ServerTime:int64;
  public DifferentDevice:int32;
  public IsFirstLogin:bool;
+}
+
 }
