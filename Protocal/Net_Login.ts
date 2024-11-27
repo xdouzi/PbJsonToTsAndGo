@@ -2,6 +2,10 @@
 由 Net_Login.xlsx %!s(MISSING) excel文件生成 ...
 author:yh 
 */
+export class Base_Login_LoginInfo{
+ public DeviceId:string;
+}
+
 export class Net_Login_LoginReq{
  public DeviceId:string;
  public FacebookId:string;
@@ -11,6 +15,7 @@ export class Net_Login_LoginReq{
  public Package:string;
  public DeviceModel:string;
  public SysVersion:string;
+ public LoginInfo:Base_Login_LoginInfo;
 }
 
 export class Net_Login_LoginRet{

@@ -28,7 +28,7 @@ func (t *ClassTsTableInfo) DoData(m *proto.Message) {
 
 // 通过pb类型转ts语言类型
 func (t *ClassTsTableInfo) GetOTypeByPbType(pbType string) string {
-	otype := ""
+	otype := pbType
 	switch pbType {
 	case "string":
 		return "string"
