@@ -18,32 +18,62 @@ func NewClassJavaTableInfo() *ClassJavaTableInfo {
 func (t *ClassJavaTableInfo) DoData(m *proto.Message) {
 	t.WLine("class %s {", m.Name)
 
+	// 遍历消息的所有字段
 	for _, e := range m.Elements {
-		if field, ok := e.(*proto.NormalField); ok {
-			fmt.Printf("  Field: %s:%s \n", field.Name, field.Type)
-			otype, _ := t.GetOTypeByPbType(field.Type)
-			t.WLine("  public %s %s;", otype, field.Name)
+		switch field := e.(type) {
+		case *proto.NormalField:
+			// 普通字段
+			fmt.Printf("Normal Field: %s:%s\n", field.Name, field.Type)
 
+			if field.Repeated == true {
+				t.WLine("  public %s []%s;", t.GetOTypeByPbType(field.Type), field.Name)
+			} else {
+				//普通
+				t.WLine("  public %s %s;", t.GetOTypeByPbType(field.Type), field.Name)
+			}
+
+		case *proto.MapField:
+			t.WLine("  public map[%s]%s %s; ",
+				t.GetOTypeByPbType(field.KeyType), t.GetOTypeByPbType(field.Type), field.Name)
+		case *proto.Comment: //RepeatedField
+			//注视的不处理
+			//t.WLine(" public %s:%s;", field.Message(), t.GetOTypeByPbType(field.Message()))
+		// Repeated 类型字段
+		//fmt.Printf("Repeated Field: %s (Type: %s)\n", field.Name, field.Type)
+		default:
+			// 其他类型
+			fmt.Printf("----未知类型 Other Field Type: %T\n", field)
 		}
 	}
+
+	/*
+		for _, e := range m.Elements {
+			if field, ok := e.(*proto.NormalField); ok {
+				fmt.Printf("  Field: %s:%s \n", field.Name, field.Type)
+				otype, _ := t.GetOTypeByPbType(field.Type)
+				t.WLine("  public %s %s;", otype, field.Name)
+
+			}
+		}
+	*/
 	t.WLine("}")
 }
 
 // 通过pb类型转ts语言类型
-func (t *ClassJavaTableInfo) GetOTypeByPbType(pbType string) (string, bool) {
+func (t *ClassJavaTableInfo) GetOTypeByPbType(pbType string) string {
 	otype := pbType
 	switch pbType {
 	case "string":
-		return "String", false
+		return "String"
 	case "int32":
-		return "int", false
+		return "int"
 	case "int64":
-		return "long", false
+		return "long"
 	case "bool":
-		return "Boolean", false
+		return "Boolean"
 	}
 
-	return otype, true
+	return otype
 }
 
 func (t *ClassJavaTableInfo) WLine(format string, a ...any) {

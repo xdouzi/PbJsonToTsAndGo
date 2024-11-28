@@ -19,6 +19,7 @@ enum CmdModule {
 added by yh @ 2023/08/25 14:09
 注意:协议规则 协议号/1000 为模块id 取余为消息号  纠结了很久 最终还是坚持
 Cmd.Login_Login //本是Cmd.Login_Login 这样的 代表登录模块的-登录消息 无赖C# PB不支持枚举下划线
+Base_Login_LoginInfo //消息需要的结构对象
 Net_Login_LoginReq //客户端请求格式  通信_模块_消息名字Req
 Net_Login_LoginRet //服务器返回格式  通信_模块_消息名字Ret
 
@@ -33,7 +34,7 @@ enum Cmd {
   CmdIdle = 0; //空置占位没用
 
   Error = 1001001;
-  //login 1001  msgid /1000
+  //login 1001  msgid /1000 =取整数模块Id 取余数 模块下的结构id号
   Login_Login = 1001002;//登录
   Login_Logout= 1001022;//登出
   Login_CloseServer = 1001023;//服务器关服中...
