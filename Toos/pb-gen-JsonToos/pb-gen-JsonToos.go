@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"os"
 )
 
 func main() {
@@ -67,4 +69,32 @@ func main() {
 
 	// 显示窗口
 	myWindow.ShowAndRun()
+}
+
+func Start() {
+	
+	dirPath := "./Protol"
+	// 检查文件夹是否存在
+	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+		// 如果不存在则创建文件夹
+		err := os.MkdirAll(dirPath, os.ModePerm)
+		if err != nil {
+			fmt.Println("Failed to create directory:", err)
+			return
+		}
+		fmt.Println("Directory created successfully!")
+	}
+
+	files, err := os.Open(dirPath)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer files.Close()
+
+	fileNames, err := files.Readdirnames(0)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
