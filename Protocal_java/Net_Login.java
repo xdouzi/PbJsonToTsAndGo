@@ -9,23 +9,11 @@ author:yh  2024.11.27
 
  class Net_Login_LoginReq {
    public String DeviceId;
-   public String FacebookId;
-   public String AppleId;
-   public String HmsId;
-   public String Credential;
-   public String Package;
-   public String DeviceModel;
-   public String SysVersion;
+   public Base_Login_LoginInfo LoginListInfo;
    public Base_Login_LoginInfo LoginInfo;
  }
 
  class Net_Login_LoginRet {
    public int Ret;
-   public long Uid;
-   public int AntiWallow;
-   public String Credential;
-   public long ServerTime;
-   public int DifferentDevice;
-   public Boolean IsFirstLogin;
  }
 

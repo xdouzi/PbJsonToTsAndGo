@@ -1,4 +1,4 @@
-package Pb;
+package pb;
 /**
 由 Net_Protocol.proto 文件生成 ...
 author:yh  2024.11.27

@@ -1,5 +1,5 @@
 syntax = "proto3";
-package Pb;
+package pb;
 option go_package = "./pb";
 
 //消息模块

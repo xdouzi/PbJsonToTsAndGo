@@ -9,23 +9,12 @@ author:yh  2024.11.27
 
  type Net_Login_LoginReq struct {
   DeviceId   string
-  FacebookId   string
-  AppleId   string
-  HmsId   string
-  Credential   string
-  Package   string
-  DeviceModel   string
-  SysVersion   string
+  LoginListInfo   []*Base_Login_LoginInfo
+  LoginMapInfo map[int32]*Base_Login_LoginInfo 
   LoginInfo   *Base_Login_LoginInfo
  }
 
  type Net_Login_LoginRet struct {
   Ret   int32
-  Uid   int64
-  AntiWallow   int32
-  Credential   string
-  ServerTime   int64
-  DifferentDevice   int32
-  IsFirstLogin   bool
  }
 
