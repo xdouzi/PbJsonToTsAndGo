@@ -1,6 +1,8 @@
 package main
 
 import (
+	"PbJsonToTsAndGo/Toos/json-gen-go/to_go"
+	"PbJsonToTsAndGo/Toos/json-gen-java/to_java"
 	"PbJsonToTsAndGo/Toos/json-gen-ts/to_ts"
 	"fmt"
 	"fyne.io/fyne/v2"
@@ -81,7 +83,9 @@ func OnOpenDo(index int32) {
 	case 1:
 		to_ts.NewPbToTsMain().Start(dirPath)
 	case 2:
+		to_go.NewPbToGoMain().Start(dirPath)
 	case 3:
+		to_java.NewPbToJavaMain().Start(dirPath)
 
 	}
 	m := NewPbToMain()

@@ -1,16 +1,21 @@
 package to_java
 
-type PbToGoMain struct {
+type PbToJavaMain struct {
 }
 
-func (m PbToGoMain) CheckToTime() bool {
+func NewPbToJavaMain() *PbToJavaMain {
+	t := &PbToJavaMain{}
+	return t
+}
+
+func (t *PbToJavaMain) CheckToTime() bool {
 	return false
 }
 
-func (m PbToGoMain) Hang() {
+func (t *PbToJavaMain) Hang() {
 
 }
 
-func (m PbToGoMain) DeleteFiles(output string, s string) {
+func (t *PbToJavaMain) DeleteFiles(output string, s string) {
 
 }
