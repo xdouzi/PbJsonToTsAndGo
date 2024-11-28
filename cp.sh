@@ -1,9 +1,11 @@
 #!/bin/bash
 #chmod u+x *.sh
 #rm -rf bin
-CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build ./Toos/json-gen-ts
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build ./Toos/json-gen-ts
+#CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build ./Toos/json-gen-ts
+#CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build ./Toos/json-gen-ts
 
+#CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build ./Toos/pb-gen-JsonToos
+CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build ./Toos/pb-gen-JsonToos
 #输出路径bin
 output_dir="/Users/yh/Documents/github/crazy-elimination/Assets/ExcelTo"
 

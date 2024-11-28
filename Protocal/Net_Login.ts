@@ -3,14 +3,6 @@
 author:yh 
 */
 export namespace pb {
- export enum  Cmd {
-  Login_Login = 0,
-  Login_Ok = -1,
-  ANTIWALLOW_ID_REPEATE = -2,
-  ANTIWALLOW_FAIL = -3,
-  ANTIWALLOW_NOT_ENOUGH_18 = -4,
- }
-
  export class Base_Login_LoginInfo{
   public DeviceId:string;
  }
