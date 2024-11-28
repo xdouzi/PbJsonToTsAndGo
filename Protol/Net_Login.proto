@@ -13,7 +13,7 @@ message Net_Login_LoginReq
   string  DeviceId = 1;//设备Id
   repeated Base_Login_LoginInfo LoginListInfo=2;
   map<int32, Base_Login_LoginInfo> LoginMapInfo = 3;
-
+  Base_Login_LoginInfo LoginInfo=4;//
   /*
     string  FacebookId = 2;//平台Id绑定在主要key上
     string  AppleId = 3;//苹果Id
@@ -23,9 +23,6 @@ message Net_Login_LoginReq
     string  DeviceModel = 7;//设备型号
     string  SysVersion = 8;//系统版本
   */
-    Base_Login_LoginInfo LoginInfo=3;//
-
-
   //string PlatName = 7;//平台名
   /*
     string  Version = 7; //包版本号
