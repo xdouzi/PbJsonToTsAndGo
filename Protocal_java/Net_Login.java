@@ -10,7 +10,7 @@ author:yh  2024.11.27
  class Net_Login_LoginReq {
    public String DeviceId;
    public Base_Login_LoginInfo []LoginListInfo;
-   public map[int]Base_Login_LoginInfo LoginMapInfo; 
+   public Map<Integer,Base_Login_LoginInfo> LoginMapInfo; 
    public Base_Login_LoginInfo LoginInfo;
  }
 

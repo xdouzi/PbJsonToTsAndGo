@@ -16,7 +16,7 @@ author:yh  2024.11.27
   Theme CmdModule = 1008
   )
 
- //[ //消息头id added by yh @ 2023/08/25 14:09 注意:协议规则 协议号/1000 为模块id 取余为消息号  纠结了很久 最终还是坚持 Cmd.Login_Login //本是Cmd.Login_Login 这样的 代表登录模块的-登录消息 无赖C# PB不支持枚举下划线 Net_Login_LoginReq //客户端请求格式  通信_模块_消息名字Req Net_Login_LoginRet //服务器返回格式  通信_模块_消息名字Ret  //C#客户端 把To看做下划线使用 Cmd.Login_Login --> Cmd.Login_Login GameNet.Instance.RegisterProtocolHandler(Cmd.Login_Login,ProtocolLoginHandler); private void ProtocolLoginHandler(MsgPendingData msg_data){     Net_Login_LoginRet data = Net_Login_LoginRet.Parser.ParseFrom(msg_data.data_bytes); } ProtocolVersion =1;//协议版本号 ]
+ //[ //消息头id added by yh @ 2023/08/25 14:09 注意: 协议规则 协议号/1000 为模块id 取余为消息号 如 1001002 msgid /1000 =取整数模块Id 取余数 模块下的结构id号 Cmd.Login_Login //本是Cmd.模块名_功能名 这样的 代表登录模块的-登录消息 Base_Login_LoginInfo //消息需要的结构对象 Base_模块名_功能名Info Net_Login_LoginReq //客户端请求格式  Net_模块名_功能名Req Net_Login_LoginRet //服务器返回格式  Net_模块名_功能名Req  //unity cocos客户端 统一用法 Cmd.Login_Login --> Cmd.Login_Login GameNet.Instance.RegisterProtocolHandler(Cmd.Login_Login,ProtocolLoginHandler); private void ProtocolLoginHandler(MsgPendingData msg_data){     Net_Login_LoginRet data = Net_Login_LoginRet.Parser.ParseFrom(msg_data.data_bytes); } ProtocolVersion =1;//协议版本号 ]
  type Cmd int32
  const (
   CmdIdle Cmd = 0

@@ -26,15 +26,15 @@ func (t *ClassJavaTableInfo) DoData(m *proto.Message) {
 			fmt.Printf("Normal Field: %s:%s\n", field.Name, field.Type)
 
 			if field.Repeated == true {
-				t.WLine("  public %s []%s;", t.GetOTypeByPbType(field.Type), field.Name)
+				t.WLine("  public %s []%s;", t.GetOTypeByPbType(field.Type, false), field.Name)
 			} else {
 				//普通
-				t.WLine("  public %s %s;", t.GetOTypeByPbType(field.Type), field.Name)
+				t.WLine("  public %s %s;", t.GetOTypeByPbType(field.Type, false), field.Name)
 			}
 
 		case *proto.MapField:
-			t.WLine("  public map[%s]%s %s; ",
-				t.GetOTypeByPbType(field.KeyType), t.GetOTypeByPbType(field.Type), field.Name)
+			t.WLine("  public Map<%s,%s> %s; ",
+				t.GetOTypeByPbType(field.KeyType, true), t.GetOTypeByPbType(field.Type, false), field.Name)
 		case *proto.Comment: //RepeatedField
 			//注视的不处理
 			//t.WLine(" public %s:%s;", field.Message(), t.GetOTypeByPbType(field.Message()))
@@ -60,12 +60,15 @@ func (t *ClassJavaTableInfo) DoData(m *proto.Message) {
 }
 
 // 通过pb类型转ts语言类型
-func (t *ClassJavaTableInfo) GetOTypeByPbType(pbType string) string {
+func (t *ClassJavaTableInfo) GetOTypeByPbType(pbType string, isJava bool) string {
 	otype := pbType
 	switch pbType {
 	case "string":
 		return "String"
 	case "int32":
+		if isJava {
+			return "Integer"
+		}
 		return "int"
 	case "int64":
 		return "long"
