@@ -2,11 +2,14 @@ package to_ts
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 )
 
 type PbToTsMain struct {
+	TsItemMap    []*PbToTsItem
+	file_content string
 }
 
 func NewPbToTsMain() *PbToTsMain {
@@ -73,13 +76,53 @@ func (t *PbToTsMain) Start(dirPath string) {
 	for _, fileName := range fileNames {
 		if filepath.Ext(fileName) == ".proto" {
 			filePath := filepath.Join(dirPath, fileName)
-			t := NewPbToTsItem()
-			t.OpenProtoFile(fileName, filePath, go_output)
+			item := NewPbToTsItem()
+			item.OpenProtoFile(fileName, filePath, go_output)
+			t.TsItemMap = append(t.TsItemMap, item)
 
 			//js := to_json.NewExcelToJson()
 			//js.OpenExcelFile(fileName, filePath, json_output)
 		}
 	}
+
+	t.WLine("export namespace %s {", "pb")
+
+	for _, table := range t.TsItemMap {
+		t.WLine(table.GetItemContent())
+	}
+	t.WLine("}")
+
+	t.SaveFile(go_output)
 	fmt.Printf("\n")
 	fmt.Printf("----------生成所有Ts配置完成---------------------\n")
+}
+func (t *PbToTsMain) WLine(format string, a ...any) {
+	aline := fmt.Sprintf(format, a...)
+	t.file_content += aline + "\n"
+
+}
+func (t *PbToTsMain) SaveFile(output string) {
+	//dirPath := "./Cx_output"
+	dirPath := output
+	// 检查文件夹是否存在
+	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+		// 如果不存在则创建文件夹
+		err := os.MkdirAll(dirPath, os.ModePerm)
+		if err != nil {
+			fmt.Println("Failed to create directory:", err)
+			return
+		}
+		fmt.Println("Directory created successfully!")
+	}
+
+	outputFile := fmt.Sprintf("%s/%s.ts", output, "pb")
+	// 将配置文件写入文件中
+	err := ioutil.WriteFile(outputFile, []byte(t.file_content), 0644)
+	if err != nil {
+		fmt.Println(fmt.Sprintf("失败 配置文件%s err=%s ", outputFile, err))
+		return
+	} else {
+		fmt.Println("配置文件已生成", outputFile)
+	}
+	t.file_content = ""
 }

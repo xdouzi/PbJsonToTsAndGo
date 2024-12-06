@@ -69,6 +69,11 @@ func (t *ClassTsTableInfo) GetOTypeByPbType(pbType string) string {
 		return "number"
 	case "bool":
 		return "boolean"
+	case "double":
+		return "number"
+	case "bytes":
+		return "Uint8Array"
+
 	}
 
 	return otype
